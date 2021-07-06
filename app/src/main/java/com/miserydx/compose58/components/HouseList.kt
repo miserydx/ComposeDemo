@@ -1,8 +1,6 @@
 package com.miserydx.compose58.components
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -38,14 +36,7 @@ import com.miserydx.compose58.R
 @Composable
 fun HouseList() {
     val houseList = remember { DataProvider.houseList }
-    LazyColumn(
-        Modifier.clickable {
-            Log.e("misery","点击了")
-            DataProvider.houseList[1].price = "2222"
-            DataProvider.houseList.removeFirst()
-        }
-    ) {
-        Log.e("misery","LazyColumn inner start")
+    LazyColumn {
         items(
             items = houseList,
             itemContent = {
@@ -57,9 +48,7 @@ fun HouseList() {
 
 @Composable
 fun HouseListItem(itemBean: HouseListItemBean) {
-    Log.e("misery","HouseListItem start")
     Column {
-        Log.e("misery","HouseListItem Column inner start")
         Row {
             HouseImage(itemBean.picUrl)
             Column(
@@ -67,11 +56,6 @@ fun HouseListItem(itemBean: HouseListItemBean) {
                     .padding(start = 10.dp, top = 12.dp)
                     .fillMaxWidth()
             ) {
-                var test = remember{ mutableStateOf(1) }
-                Text(text = test.value.toString(),
-                modifier = Modifier.clickable {
-                    test.value++
-                })
                 Title(title = itemBean.title)
                 SubTitle(itemBean = itemBean)
                 TagLayout(itemBean = itemBean)
